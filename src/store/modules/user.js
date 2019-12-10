@@ -20,6 +20,7 @@ const mutations = {
   }
 }
 
+//登录调用的方法
 const actions = {
   // user login
   login({ commit }, userInfo) {

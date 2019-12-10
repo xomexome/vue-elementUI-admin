@@ -35,3 +35,11 @@ function $fetch(method,url,data){
         })
     })
 }
+
+let login=(username,password)=>{
+    $fetch('post','/login',{username,password});
+}
+
+module.exports={
+    login
+}

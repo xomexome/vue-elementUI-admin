@@ -29,7 +29,7 @@ export default [
     url: '/user/login',
     type: 'post',
     response: config => {
-      const { username } = config.body
+      const { username } = config.body;
       const token = tokens[username]
 
       // mock error

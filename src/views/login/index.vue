@@ -53,7 +53,9 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { validUsername } from '@/utils/validate';
+import { login } from '@/data/fetch';
+import md5 from 'js-md5';
 
 export default {
   name: 'Login',
@@ -69,7 +71,7 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length != '111111') {
+      if (value.length == '') {
         callback(new Error('请输入密码'))
       } else {
         callback()
@@ -97,6 +99,12 @@ export default {
       immediate: true
     }
   },
+  created(){
+    //查看有没账号密码
+    if( localStorage.user && localStorage.user!='' ){
+      this.$router.push({ path: this.redirect || '/' })
+    }
+  },
   methods: {
     showPwd() {
       if (this.passwordType === 'password') {
@@ -109,27 +117,32 @@ export default {
       })
     },
     handleLogin() {
-      // this.$refs.loginForm.validate(valid => {
-      //   if (valid) {
-      //     this.loading = true
-      //     this.$store.dispatch('user/login', this.loginForm).then(() => {
-      //       this.$router.push({ path: this.redirect || '/' })
-      //       this.loading = false
-      //     }).catch(() => {
-      //       this.loading = false
-      //     })
-      //   } else {
-      //     console.log('error submit!!')
-      //     return false
-      //   }
-      // })
-      this.loading = true
-      this.$store.dispatch('user/login', this.loginForm).then(() => {
-        this.$router.push({ path: this.redirect || '/' })
-        this.loading = false
-      }).catch(() => {
-        this.loading = false
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+       //调用/mock/user.js的方法
+          this.$store.dispatch('user/login', this.loginForm).then(() => {
+            this.$router.push({ path: this.redirect || '/' })
+            this.loading = false
+          }).catch(() => {
+            this.loading = false
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
       })
+      // //待测试
+      // this.loading = true
+      // this.login(md5(this.loginForm.username),md5(this.loginForm.password)).then(res=>{
+            // //保存登录状态
+            // localStorage.setItem('user',this.loginForm);
+      //   this.$router.push({ path: this.redirect || '/' })
+      //   this.loading = false
+      // }).catch(err=>{
+      //   this.$message.error('账号或密码有错');
+      //   console.log(err);
+      // })
     }
   }
 }
