@@ -66,6 +66,8 @@ export default {
         } else {
           // Temp set(will be used if only has one showing child)
           this.onlyOneChild = item
+          // this.onlyOneChild = {meta: {title: "饮水消费", icon: "tree"}}
+          console.log(item)
           return true
         }
       })

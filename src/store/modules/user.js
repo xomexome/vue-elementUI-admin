@@ -5,7 +5,8 @@ import { resetRouter } from '@/router'
 const state = {
   token: getToken(),
   name: '',
-  avatar: ''
+  avatar: '',
+  power:0
 }
 
 const mutations = {
@@ -17,6 +18,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  setPower(state,power){
+    state.power=power;
   }
 }
 

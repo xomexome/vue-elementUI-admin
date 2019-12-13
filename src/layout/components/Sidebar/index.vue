@@ -23,6 +23,7 @@ import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
+import { constantRoutes } from '@/router'
 
 export default {
   components: { SidebarItem, Logo },
@@ -31,6 +32,26 @@ export default {
       'sidebar'
     ]),
     routes() {
+      console.log(constantRoutes)
+      // //测试
+      // this.$router.options.routes=constantRoutes
+      // this.$router.addRoutes([{
+      //   /**
+      //    * 水机管理
+      //    */
+      //   path: '/Administration',
+      //   component: () => import('@/views/waterManage/Administration'),
+      //   children: [
+      //     {
+      //       path: 'index',
+      //       name: 'Form',
+      //       component: () => import('@/views/waterManage/Administration'),
+      //       meta: { title: '代价地阿斯顿加速度', icon: 'form' }
+      //     }
+      //   ]
+      // }])
+      // console.log(this.$router.options.routes)
+
       return this.$router.options.routes
     },
     activeMenu() {

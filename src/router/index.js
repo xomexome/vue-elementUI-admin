@@ -33,6 +33,7 @@ import Layout from '@/layout'
 
 /**
  * 数组图内容添加就是增加路由
+ * 这个是动态路由
  */
 export const constantRoutes = [
   { /**
@@ -219,9 +220,28 @@ export const constantRoutes = [
   },
 
   // 404 page must be placed at the end !!!
+  //先屏蔽，后面可能会用addroutes动态加路由
+  // { path: '*', redirect: '/404', hidden: true }
+]
+
+export const asyncRoutes=[
+  {
+    //报错可能是有重复的了
+    path: '/asd',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Form',
+        component: () => import('@/views/form/index'),
+        meta: { title: 'asd', icon: 'form' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
+//实例化vue的时候只挂载constantRoutes
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),

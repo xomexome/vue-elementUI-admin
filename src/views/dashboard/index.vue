@@ -13,6 +13,45 @@
         </div>
       </div>
     </template>
+    <!-- main -->
+    <div class="main">
+      <div style="width:74.75%;background-color: antiquewhite;border:1px solid black;padding:10px;">
+        <div style="float:left;width:calc( 99% - 80px )">
+          <!-- 改不了输入框高度，以后有时间再改 -->
+          <!-- <table>
+            <tr>
+              <td>市：<el-input v-model="search.one" placeholder="请输入内容" class="inp"></el-input></td>
+              <td>状态：<el-input v-model="search.two" placeholder="请输入内容" class="inp"></el-input></td>
+              <td>生产厂家：<el-input v-model="search.three" placeholder="请输入内容" class="inp"></el-input></td>
+            </tr>
+            <tr>
+              <td>设备编号：<el-input v-model="search.four" placeholder="请输入内容" class="inp"></el-input></td>
+              <td>购买者：<el-input v-model="search.five" placeholder="请输入内容" class="inp"></el-input></td>
+            </tr>
+          </table> -->
+          <table>
+            <tr>
+              <td>市：<input v-model="search.one" placeholder="请输入内容"/></td>
+              <td>状态：<input v-model="search.two" placeholder="请输入内容"/></td>
+              <td>生产厂家：<input v-model="search.three" placeholder="请输入内容"/></td>
+            </tr>
+            <tr>
+              <td>设备编号：<input v-model="search.four" placeholder="请输入内容"/></td>
+              <td>购买者：<input v-model="search.five" placeholder="请输入内容"/></td>
+            </tr>
+          </table>
+        </div>
+        <div style="float:right;">
+          <el-button type="primary" style="width:80px;padding:10px 0">查询</el-button>
+        </div>
+        <div style="clear:both"></div>
+        <div style="width:100;height:5vh;background-color: green"></div>
+      </div>
+      <div style="width: 24.25%;background-color: red;border:1px solid black;padding:10px;">
+
+      </div>
+    </div>
+    <div>asd{{power}}</div>
   </div>
 </template>
 
@@ -39,13 +78,25 @@ export default {
         name:'周收入',
         number:151984,
         top:'8%'
+      }],
+      search:[{
+        one:'',
+        two:'',
+        three:'',
+        four:'',
+        five:''
       }]
     }
   },
   computed: {
     ...mapGetters([
-      'name'
+      'name',
+      'power'
     ])
+  },
+  created(){
+    this.$store.commit('user/setPower',12);
+    console.log(this.$store.state.user.power);
   }
 }
 </script>
@@ -60,23 +111,43 @@ export default {
     line-height: 46px;
   }
 }
+//主体
 .main{
-  width: 100%;
-  height: 100%;
-  background-color: antiquewhite;
-}
-ul{
-  padding: 0;
-  li{
-    list-style-type:none;
+  display:flex;
+  justify-content: space-between;
+  margin-top: 1%;
+  table{
+    td{
+      width: 33%;
+      padding-right: 10px;
+      white-space: nowrap;
+      text-align: right;
+      input,.inp{
+        width: calc( 100% - 80px );
+        padding: 0 5px;
+        line-height: 30px;
+        height: 30px;
+        // .el-input__inner{
+        //   line-height: 20px;
+        //   height: 20px;
+        // }
+      }
+    }
   }
 }
+//状态
 .state{
-  width:22%;
+  width:calc( 97% / 4 );   
   display:inline-block;
-  margin-right:4%
+  margin-right:1%;
+  ul{
+    padding: 0;
+    li{
+      list-style-type:none;
+    }
+  }
 }
 .state:nth-child(4){
-  margin: 0
+  margin: 0;
 }
 </style>

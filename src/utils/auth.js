@@ -7,7 +7,7 @@ export function getToken() {
 }
 
 export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+  return Cookies.set(TokenKey, token)  //登录成功后将token存储在cookie之中
 }
 
 export function removeToken() {

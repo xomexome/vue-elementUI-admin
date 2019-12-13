@@ -7,6 +7,7 @@ import user from './modules/user'
 
 Vue.use(Vuex)
 
+//模块化
 const store = new Vuex.Store({
   modules: {
     app,

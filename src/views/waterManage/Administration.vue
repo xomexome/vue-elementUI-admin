@@ -38,23 +38,23 @@ export default {
       tableData: [{
         date: "2016-05-02",
         name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄"
+        address: "上海市普陀区金沙江路 1518 弄1"
       }, {
         date: "2016-05-04",
         name: "王小虎",
-        address: "上海市普陀区金沙江路 1517 弄"
+        address: "上海市普陀区金沙江路 1517 弄2"
       }, {
         date: "2016-05-04",
         name: "王小虎",
-        address: "上海市普陀区金沙江路 1517 弄"
+        address: "上海市普陀区金沙江路 1517 弄3"
       }, {
         date: "2016-05-04",
         name: "王小虎",
-        address: "上海市普陀区金沙江路 1517 弄"
+        address: "上海市普陀区金沙江路 1517 弄4"
       }, {
         date: "2016-05-04",
         name: "王小虎",
-        address: "上海市普陀区金沙江路 1517 弄"
+        address: "上海市普陀区金沙江路 1517 弄5"
       }]
     }
   },
@@ -73,12 +73,15 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
       }).then(() => {
-        //点在字上和点在按钮上位置不同，需要判定
-        if(e.target.parentNode.parentNode.parentNode.parentNode.className==''){
-          e.target.parentNode.parentNode.parentNode.remove()
-        }else{
-          e.target.parentNode.parentNode.parentNode.parentNode.remove()
-        }
+        // //点在字上和点在按钮上位置不同，需要判定
+        // if(e.target.parentNode.parentNode.parentNode.parentNode.className==''){
+        //   e.target.parentNode.parentNode.parentNode.remove()
+        // }else{
+        //   e.target.parentNode.parentNode.parentNode.parentNode.remove()
+        // }
+        //处理数据
+        this.tableData.splice(index,1);
+        console.log(this.tableData);
         this.$message({
           type: 'success',
           message: '删除成功!'
