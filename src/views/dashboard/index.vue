@@ -328,6 +328,7 @@ export default {
             }
         ]
       };
+      
       var myChart2 = this.$echarts.init(document.getElementById('myChart2'))
       var option2 ={
           tooltip : {
