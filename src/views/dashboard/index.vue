@@ -218,7 +218,14 @@ export default {
         name: "贵州",
         address: "51",
         week:'10%'
-      }]
+      }],
+      chartData:[
+        {value:335, name:'直接访问'},
+        {value:310, name:'邮件营销'},
+        {value:234, name:'联盟广告'},
+        {value:135, name:'视频广告'},
+        {value:1548, name:'搜索引擎'}
+      ]
     }
   },
   computed: {
@@ -234,8 +241,23 @@ export default {
   mounted(){
     this.drawLine();
   },
+  watch:{
+    //监听chartData，刷新图表数据
+    chartData(){
+      this.drawLine();
+    }
+  },
   methods:{
     async handleSizeChange(val) {
+      //这样才能刷新
+      this.chartData=[
+        {value:335, name:'直接访问'},
+        {value:4567, name:'邮件营销'},
+        {value:234, name:'联盟广告'},
+        {value:135, name:'视频广告'},
+        {value:1548, name:'搜索引擎'}
+      ];
+
       console.log(`每页 ${val} 条`);
       this.number=val;
       console.log(`每页 ${this.number} 条`);
@@ -260,71 +282,30 @@ export default {
       // 饼图
       var myChart1 = this.$echarts.init(document.getElementById('myChart1'))
       var option1 = {
-        backgroundColor: '#2c343c',
-        title: {
-            text: 'Customized Pie',
-            left: 'center',
-            top: 20,
-            textStyle: {
-                color: '#ccc'
-            }
-        },
-        tooltip : {
+        tooltip: {
             trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
-        visualMap: {
-            show: false,
-            min: 80,
-            max: 600,
-            inRange: {
-                colorLightness: [0, 1]
-            }
-        },
-        series : [
+        series: [
             {
                 name:'访问来源',
                 type:'pie',
-                radius : '55%',
-                center: ['50%', '50%'],
-                data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:274, name:'联盟广告'},
-                    {value:235, name:'视频广告'},
-                    {value:400, name:'搜索引擎'}
-                ].sort(function (a, b) { return a.value - b.value; }),
-                roseType: 'radius',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
                 label: {
                     normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
                         textStyle: {
-                            color: 'rgba(255, 255, 255, 0.3)'
+                            fontSize: '20',
+                            fontWeight: 'bold'
                         }
                     }
                 },
-                labelLine: {
-                    normal: {
-                        lineStyle: {
-                            color: 'rgba(255, 255, 255, 0.3)'
-                        },
-                        smooth: 0.2,
-                        length: 10,
-                        length2: 20
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        color: '#c23531',
-                        shadowBlur: 200,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                },
-
-                animationType: 'scale',
-                animationEasing: 'elasticOut',
-                animationDelay: function (idx) {
-                    return Math.random() * 200;
-                }
+                data:this.chartData
             }
         ]
       };
