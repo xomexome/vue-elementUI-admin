@@ -56,6 +56,13 @@
                 label="日期"
                 sortable>
               </el-table-column>
+              <!-- <template v-for="index in 7">
+                <el-table-column
+                  prop="name"
+                  label="姓名"
+                  sortable :key="index">
+                </el-table-column>
+              </template> -->
               <el-table-column
                 prop="name"
                 label="姓名"

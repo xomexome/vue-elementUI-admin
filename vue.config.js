@@ -1,12 +1,9 @@
 'use strict'
 const path = require('path')
-const defaultSettings = require('./src/settings.js')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-
-const name = defaultSettings.title || 'vue Admin Template' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -29,41 +26,49 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   // lintOnSave: process.env.NODE_ENV === 'development',
+  //是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码
   lintOnSave:false,
   productionSourceMap: false,
   devServer: {
     port: port,
     //自动打开首页
     open: false,
+    //显示警告和错误
     overlay: {
       warnings: false,
       errors: true
     },
+    //解决跨域
     proxy: {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://127.0.0.1:${port}/mock`,
-        changeOrigin: true,
+        target: `http://127.0.0.1:${port}/mock`,//地址
+        changeOrigin: true,//可否跨域
         pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
+          ['^' + process.env.VUE_APP_BASE_API]: ''//路径重写
         }
       }
     },
     after: require('./mock/mock-server.js')
   },
+  //
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
-    name: name,
+    //页面标题栏
+    name: '惠利普水机项目',
     resolve: {
       alias: {
         '@': resolve('src')
       }
     }
   },
+  // 删除 HTML 相关的 webpack 插件
   chainWebpack(config) {
+    // 移除 preload 插件
     config.plugins.delete('preload') // TODO: need test
+    // 移除 prefetch 插件
     config.plugins.delete('prefetch') // TODO: need test
 
     // set svg-sprite-loader
@@ -89,6 +94,7 @@ module.exports = {
       .use('vue-loader')
       .loader('vue-loader')
       .tap(options => {
+        //修改选项
         options.compilerOptions.preserveWhitespace = true
         return options
       })
