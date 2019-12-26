@@ -23,11 +23,13 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
   publicPath: '/',
+  //打包路径
   outputDir: 'dist',
   assetsDir: 'static',
   // lintOnSave: process.env.NODE_ENV === 'development',
   //是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码
   lintOnSave:false,
+  //是否需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -42,11 +44,13 @@ module.exports = {
     proxy: {
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
-      [process.env.VUE_APP_BASE_API]: {
-        target: `http://127.0.0.1:${port}/mock`,//地址
+      '/*': {
+        target: 'https://localhost:3000',//地址
+        // target: 'https://api.apiopen.top',//地址
         changeOrigin: true,//可否跨域
         pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''//路径重写
+          '^/*': ''//路径重写
+          // ['^' + process.env.VUE_APP_BASE_API]: ''//路径重写
         }
       }
     },

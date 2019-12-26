@@ -1,5 +1,6 @@
 import axios from "axios";
 var url = 'http://localhost:3000';
+// var url = 'https://api.apiopen.top';
 let $axios=axios.create({
     baseURL:url
 })
@@ -20,9 +21,9 @@ function $fetch(method,url,data){
             method,
             url,
             data:data,
-            headers:{
-                token:getCookie('token')
-            }
+            // headers:{
+            //     token:getCookie('token')
+            // }
         }).then((res)=>{
             let body=res.data;
             if(body.code == 200 || body.code == 201){
@@ -36,9 +37,8 @@ function $fetch(method,url,data){
     })
 }
 
-let login=(username,password)=>{
-    $fetch('post','/login',{username,password});
-}
+let login=(username,password)=>$fetch('post','/login',{username,password});
+// let login=(username,password)=>$fetch('post','/searchMusic?name=好久不见',{username,password});
 
 module.exports={
     login

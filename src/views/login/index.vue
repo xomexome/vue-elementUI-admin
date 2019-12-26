@@ -109,7 +109,13 @@ export default {
     //查看有没账号密码
     if( localStorage.user && localStorage.user!='' ){
       this.$router.push({ path: this.redirect || '/' })
-    }
+    };
+    //请求数据
+    login('asd','465').then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
   },
   methods: {
     showPwd() {
